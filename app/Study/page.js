@@ -448,7 +448,7 @@ export default function ProfessionalTypingLab() {
         </nav>
 
         {/* Lessons Section - Scrollable */}
-        <div className="flex-1 overflow-y-auto p-4 mb-8">
+        <div className="flex-1 overflow-y-auto p-4 mb-8" style={{ scrollBehavior: 'smooth' }}>
           <h3 className={`text-xs font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} uppercase tracking-wider mb-3 px-2`}>
             Training Lessons
           </h3>

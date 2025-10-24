@@ -1,15 +1,14 @@
+// app/api/scores/route.js (or your route location)
+
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import Score from '@/models/Score';
+import prisma from '@/lib/prisma';
 
 export async function POST(req) {
   try {
-    await dbConnect();
-
     const body = await req.json();
 
     // Validate the request body
-    if (!body.name || !body.wpm || !body.accuracy) {
+    if (!body.name || !body.wpm || body.accuracy === undefined) {
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
@@ -17,11 +16,13 @@ export async function POST(req) {
     }
 
     // Create a new score in the database
-    const score = await Score.create({
-      name: body.name,
-      wpm: body.wpm,
-      accuracy: body.accuracy,
-      rawWpm: body.rawWpm || body.wpm, // Use provided rawWpm or default to wpm
+    const score = await prisma.score.create({
+      data: {
+        name: body.name,
+        wpm: parseInt(body.wpm),
+        accuracy: parseFloat(body.accuracy),
+        rawWpm: body.rawWpm ? parseInt(body.rawWpm) : parseInt(body.wpm),
+      },
     });
 
     return NextResponse.json({ success: true, data: score });
@@ -36,12 +37,13 @@ export async function POST(req) {
 
 export async function GET() {
   try {
-    await dbConnect();
-
     // Fetch the top 100 scores, sorted by WPM in descending order
-    const scores = await Score.find({})
-      .sort({ wpm: -1 })
-      .limit(100);
+    const scores = await prisma.score.findMany({
+      orderBy: {
+        wpm: 'desc',
+      },
+      take: 100,
+    });
 
     return NextResponse.json({ success: true, data: scores });
   } catch (error) {
