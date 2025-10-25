@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { TrophyIcon, ClockIcon, ChartBarIcon, ArrowPathIcon, UserIcon, ArrowTrendingUpIcon, SparklesIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { TrophyIcon, ClockIcon, ChartBarIcon, ArrowPathIcon, UserIcon, ArrowTrendingUpIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 
 import TrueFocus from '../pro/TrueFocus';
@@ -27,10 +27,11 @@ export default function LeaderboardPage() {
       // Process scores to keep only the highest score per user
       const uniqueUserScores = processUniqueHighestScores(data.data);
       
-      // Only keep top 20 unique users in mongoDB abo nshaka kuri leaderboard
+      // Only keep top 20 unique users
       setScores(uniqueUserScores.slice(0, 20));
       setLoading(false);
     } catch (error) {
+      console.error('Fetch error:', error);
       setError(error.message);
       setLoading(false);
     }
@@ -71,6 +72,12 @@ export default function LeaderboardPage() {
         <div className="text-rose-500 text-center">
           <p className="text-xl font-semibold">Error loading leaderboard</p>
           <p className="mt-2">{error}</p>
+          <button
+            onClick={fetchScores}
+            className="mt-4 px-4 py-2 bg-emerald-500 text-slate-900 rounded-lg hover:bg-emerald-600"
+          >
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -80,15 +87,11 @@ export default function LeaderboardPage() {
     <div className="min-h-screen bg-slate-900 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-
           <h1 className="text-3xl font-mono font-bold text-slate-200 flex items-center justify-center gap-3">
-  <RocketLaunchIcon className="w-10 h-10 text-emerald-500 mr-5 animate-bounce" />
-
-  {/* errors true focus importion in page.js*/}
-  <TrueFocus />
-  {/* Remove "Speed Typing Champions" text here */}
-</h1>
-         <br></br>
+            <RocketLaunchIcon className="w-10 h-10 text-emerald-500 mr-5 animate-bounce" />
+            <TrueFocus />
+          </h1>
+          <br />
           <p className="text-slate-400 mt-2 font-mono font-bold">Top speeds and highest accuracy</p>
           
           <button
@@ -184,7 +187,7 @@ export default function LeaderboardPage() {
             {/* Mobile View */}
             <div className="block sm:hidden">
               {scores.slice(3).map((score, index) => (
-                <div key={score._id} className="p-4 border-b border-slate-700/50">
+                <div key={score.id} className="p-4 border-b border-slate-700/50">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-700 text-sm font-mono font-semibold text-slate-300">
                       {index + 4}
@@ -209,19 +212,18 @@ export default function LeaderboardPage() {
             <table className="w-full hidden sm:table">
               <thead>
                 <tr className="border-b border-slate-700/50">
-                {/*gukora kuri logo*/}
                   <th className="px-6 py-4 text-left text-sm font-semibold text-slate-400">
                     <div className="flex items-center gap-2">
                       <ArrowTrendingUpIcon className="w-4 h-4" />
                       Rank
                     </div>
-                    </th>
+                  </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-slate-400">
                     <div className="flex items-center gap-2">
                       <UserIcon className="w-4 h-4" />
                       Name
                     </div>
-                    </th>
+                  </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-slate-400">
                     <div className="flex items-center gap-2">
                       <ClockIcon className="w-4 h-4" />
@@ -238,7 +240,7 @@ export default function LeaderboardPage() {
               </thead>
               <tbody className="divide-y divide-slate-700/30">
                 {scores.slice(3).map((score, index) => (
-                  <tr key={score._id} className="hover:bg-slate-700/20 transition-colors">
+                  <tr key={score.id} className="hover:bg-slate-700/20 transition-colors">
                     <td className="px-6 py-4">
                       <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-700/50 font-mono font-semibold text-slate-300">
                         {index + 4}
