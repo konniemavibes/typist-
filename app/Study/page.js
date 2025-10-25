@@ -2,26 +2,20 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 
-
 import {
   ClockIcon,
   BoltIcon,
   ChartBarIcon,
   ArrowPathIcon,
-  UserPlusIcon,
   Bars3Icon,
   XMarkIcon,
   HomeIcon,
-  BookOpenIcon,
-  
-  BarsArrowUpIcon
+  BarsArrowUpIcon,
+  ArrowRightCircleIcon 
 } from "@heroicons/react/24/outline";
 
 import { MobileKeyboard } from '../components/MobileKeyboard';
 import { useRouter } from 'next/navigation';
-
-
-
 
 // Lessons data structure
 const lessons = [
@@ -127,8 +121,7 @@ const ActionButton = ({ children, onClick, icon, variant = "primary", className 
 export default function ProfessionalTypingLab() {
   const [input, setInput] = useState("");
   const [sentence, setSentence] = useState("");
-  const [username, setUsername] = useState('');
-  const [gameState, setGameState] = useState('loading');
+  const [gameState, setGameState] = useState('playing'); // Start directly in playing state
   const [stats, setStats] = useState({
     wpm: 0,
     accuracy: 100,
@@ -136,7 +129,6 @@ export default function ProfessionalTypingLab() {
     initialTime: 30
   });
   const [isMobile, setIsMobile] = useState(false);
-  const [submitError, setSubmitError] = useState("");
   const [theme, setTheme] = useState("dark");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState(null);
@@ -153,28 +145,20 @@ export default function ProfessionalTypingLab() {
 
   useEffect(() => {
     audioRef.current = new Audio('https://www.soundjay.com/buttons/beep-01a.mp3');
-    const savedUsername = localStorage.getItem('typingUsername');
-    if (savedUsername) {
-      setUsername(savedUsername);
-      setGameState('playing');
-    } else {
-      setGameState('username');
-    }
+    // No username required - start directly
+    setGameState('playing');
   }, []);
 
-
-  //random lesson sentence generator for lesson selected
   const generateSentence = useCallback(() => {
-  if (selectedLesson) {
-    return selectedLesson.sentences[currentSentenceIndex];
-  }
-  // If no lesson is selected, use a random lesson's first sentence
-  const crypto = window.crypto || window.msCrypto;
-  const values = new Uint32Array(1);
-  crypto.getRandomValues(values);
-  const randomLesson = lessons[values[0] % lessons.length];
-  return randomLesson.sentences[0];
-}, [selectedLesson, currentSentenceIndex]);
+    if (selectedLesson) {
+      return selectedLesson.sentences[currentSentenceIndex];
+    }
+    const crypto = window.crypto || window.msCrypto;
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    const randomLesson = lessons[values[0] % lessons.length];
+    return randomLesson.sentences[0];
+  }, [selectedLesson, currentSentenceIndex]);
 
   const startGame = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -236,26 +220,9 @@ export default function ProfessionalTypingLab() {
       time: 0
     }));
 
-    try {
-      const response = await fetch('/api/scores', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: username.trim(),
-          wpm: finalWpm,
-          accuracy: finalAccuracy,
-          rawWpm: finalWpm,
-        }),
-      });
-
-      if (!response.ok) throw new Error('Score submission failed');
-      setSubmitError('');
-    } catch (error) {
-      setSubmitError(error.message);
-    }
-
+    // NO DATABASE SUBMISSION - Just show results
     setGameState("results");
-  }, [username]);
+  }, []);
 
   const startTimer = useCallback(() => {
     if (!timerStartedRef.current) {
@@ -319,9 +286,10 @@ export default function ProfessionalTypingLab() {
       accuracy
     }));
 
-    if (newInput === sentence && !hasSubmittedRef.current) {
-      endGame();
-    }
+     // CHANGE THIS LINE - End when they reach sentence length
+  if (newInput.length >= sentence.length && !hasSubmittedRef.current) {
+    endGame();
+  }
   }, [sentence, endGame, startTimer, input.length, gameState, stats.time]);
 
   const handlePhysicalInput = useCallback((e) => {
@@ -341,28 +309,11 @@ export default function ProfessionalTypingLab() {
     };
   }, []);
 
-  const handleUsernameSubmit = (e) => {
-    e.preventDefault();
-    if (username.trim().length < 2) {
-      setSubmitError('Please enter a name with at least 2 characters');
-      return;
-    }
-    localStorage.setItem('typingUsername', username.trim());
-    startGame();
-  };
-
-  const resetUsername = () => {
-    localStorage.removeItem('typingUsername');
-    setGameState('username');
-  };
-
   const handleLessonSelect = (lesson) => {
     if (selectedLesson?.id === lesson.id) {
-      // If clicking the same lesson, cycle to next sentence
       const nextIndex = (currentSentenceIndex + 1) % lesson.sentences.length;
       setCurrentSentenceIndex(nextIndex);
     } else {
-      // If selecting a new lesson, start from first sentence
       setSelectedLesson(lesson);
       setCurrentSentenceIndex(0);
     }
@@ -372,16 +323,11 @@ export default function ProfessionalTypingLab() {
 
   const progressPercentage = (stats.time / stats.initialTime) * 100;
 
-//function to handle starting a new test
   const router = useRouter();
-   const handleStartNewTest = () => {
+  const handleStartNewTest = () => {
     router.push('/');
   };
-//end of function new test
 
-
-  // Sidebar Component
-// Sidebar Component
   const Sidebar = () => (
     <>
       {sidebarOpen && (
@@ -392,14 +338,13 @@ export default function ProfessionalTypingLab() {
       )}
       
       <div className={`
-        fixed top-17  left-0 h-screen w-72 font-mono font-bold flex flex-col
+        fixed top-17 left-0 h-screen w-72 font-mono font-bold flex flex-col
         ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'} 
         border-r ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'}
         transform transition-transform duration-300 ease-in-out z-50
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 shadow-xl
       `}>
-        {/* Header - Fixed */}
         <div className="flex-shrink-0 p-6 border-b border-slate-700/50">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -419,35 +364,29 @@ export default function ProfessionalTypingLab() {
           </div>
         </div>
         
-        {/* Navigation - Fixed */}
         <nav className="flex-shrink-0 p-4 space-y-2 border-b border-slate-700/50">
           <button 
             onClick={() => {
-              setSelectedLesson(null);
-              setSidebarOpen(false);
-              setGameState('username');
+              router.push('/');
             }}
-            className={`w-full  flex items-center gap-3 px-4 py-3 rounded-xl ${theme === 'dark' ? 'text-slate-300 hover:bg-slate-700/50' : 'text-slate-700 hover:bg-slate-100'} transition-all duration-200 group`}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${theme === 'dark' ? 'text-slate-300 hover:bg-slate-700/50' : 'text-slate-700 hover:bg-slate-100'} transition-all duration-200 group`}
           >
             <HomeIcon className="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
             <span className="font-medium">Home</span>
           </button>
-{/*use links to link from different pages to test not working errorrrrrr*/}
-   <button
-  onClick={handleStartNewTest}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${
-    theme === "dark"
-      ? "text-slate-300 hover:bg-slate-700/50"
-      : "text-slate-700 hover:bg-slate-100"
-  } transition-all duration-200 group`}
->
-  <ArrowPathIcon className="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
-  <span className="font-medium">Take Test</span>
-</button>
-
+          <button
+            onClick={handleStartNewTest}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${
+              theme === "dark"
+                ? "text-slate-300 hover:bg-slate-700/50"
+                : "text-slate-700 hover:bg-slate-100"
+            } transition-all duration-200 group`}
+          >
+            <ArrowPathIcon className="w-5 h-5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+            <span className="font-medium">Take Test</span>
+          </button>
         </nav>
 
-        {/* Lessons Section - Scrollable */}
         <div className="flex-1 overflow-y-auto p-4 mb-8" style={{ scrollBehavior: 'smooth' }}>
           <h3 className={`text-xs font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} uppercase tracking-wider mb-3 px-2`}>
             Training Lessons
@@ -458,7 +397,7 @@ export default function ProfessionalTypingLab() {
                 key={lesson.id}
                 onClick={() => handleLessonSelect(lesson)}
                 className={`
-                  w-full text-left p-4 rounded-xl transition-all duration-200
+                  w-full text-left p-4 rounded-xl transition-all duration-200 
                   ${selectedLesson?.id === lesson.id
                     ? 'bg-emerald-500/10 border-2 border-emerald-500 shadow-lg shadow-emerald-500/20'
                     : theme === 'dark'
@@ -472,7 +411,7 @@ export default function ProfessionalTypingLab() {
                     {lesson.title}
                   </span>
                   <span className={`
-                    text-xs px-2.5 py-1 rounded-full font-bold
+                    text-xs px-2.5 py-1 rounded-full font-bold 
                     ${lesson.difficulty === 'Easy' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : ''}
                     ${lesson.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
                     ${lesson.difficulty === 'Hard' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : ''}
@@ -482,8 +421,8 @@ export default function ProfessionalTypingLab() {
                 </div>
                 <span className={`text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} font-medium`}>
                   {selectedLesson?.id === lesson.id 
-                    ? `📝 Exercise ${currentSentenceIndex + 1}/${lesson.sentences.length}` 
-                    : `📚 ${lesson.sentences.length} exercises`}
+                    ? ` Exercise ${currentSentenceIndex + 1}/${lesson.sentences.length}` 
+                    : ` ${lesson.sentences.length} exercises`}
                 </span>
               </button>
             ))}
@@ -492,62 +431,19 @@ export default function ProfessionalTypingLab() {
       </div>
     </>
   );
-//side bar end
 
-//line 478 control the x overflow of the whole page
   return (
     <div className={`min-h-screen overflow-x-hidden ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'} transition-colors duration-300`}>
       <Sidebar />
       
-      {/* Hamburger Menu Button */}
       <button
         onClick={() => setSidebarOpen(true)}
         className={`fixed mt-6 left-4 z-30 lg:hidden p-2 rounded-lg ${theme === 'dark' ? 'bg-slate-800 text-slate-200' : 'bg-white text-slate-800'} border ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'} shadow-lg`}
       >
-<Bars3Icon className="w-7 h-7 text-slate-200 hover:text-emerald-500 transition-colors duration-300 cursor-pointer" />
+        <Bars3Icon className="w-7 h-7 text-slate-200 hover:text-emerald-500 transition-colors duration-300 cursor-pointer" />
       </button>
 
       <div className="lg:ml-64 container mx-auto px-4 py-6 max-w-6xl">
-        {gameState === "username" && (
-          <div className="text-center animate-fade-in min-h-[80vh] flex items-center justify-center">
-            <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-10 max-w-md w-full mx-auto border border-slate-700/20 shadow-xl`}>
-              <div className="flex items-center justify-center mb-8">
-                <UserPlusIcon className="w-10 h-10 text-emerald-500" />
-                <h1 className={`text-3xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} ml-3`}>
-                  Typing Test Web.
-                </h1>
-              </div>
-              <form onSubmit={handleUsernameSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                    setSubmitError('');
-                  }}
-                  className={`w-full px-5 py-4 rounded-lg border ${theme === 'dark' ? 'bg-slate-700 border-slate-600 text-slate-200 focus:ring-emerald-500/30' : 'bg-white border-slate-300 text-slate-800 focus:ring-emerald-500/20'} 
-                           focus:outline-none focus:border-emerald-500 focus:ring-4 font-mono text-xl transition duration-200`}
-                  placeholder="Enter your name."
-                  maxLength="20"
-                  autoFocus
-                />
-                {submitError && (
-                  <p className="text-rose-500 text-sm mt-1">{submitError}</p>
-                )}
-                <button
-                  type="submit"
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 px-6 py-4 rounded-lg font-medium text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] font-mono"
-                >
-                  Start typing
-                </button>
-              </form>
-              <p className={`mt-6 font-mono text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-                💡 Make it to the leaderboard!
-              </p>
-            </div>
-          </div>
-        )}
-
         {gameState === "playing" && (
           <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
             {selectedLesson && (
@@ -573,7 +469,6 @@ export default function ProfessionalTypingLab() {
               </div>
             )}
 
-            {/* Progress Bar */}
             <div className="w-full bg-slate-700/50 rounded-full h-2.5 mb-4">
               <div 
                 className="bg-emerald-500 h-2.5 rounded-full transition-all duration-300 ease-out"
@@ -651,15 +546,6 @@ export default function ProfessionalTypingLab() {
               />
             </div>
 
-            <div className="text-center mt-8">
-              <button 
-                onClick={resetUsername}
-                className={`text-sm ${theme === 'dark' ? 'text-slate-500 hover:text-slate-400' : 'text-slate-500 hover:text-slate-700'} underline font-mono transition-colors duration-200`}
-              >
-                Change username
-              </button>
-            </div>
-
             {isMobile && (
               <div className={`fixed bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-slate-800/95' : 'bg-white/95'} backdrop-blur-lg border-t ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'} p-3 pb-4`}>
                 <MobileKeyboard
@@ -678,19 +564,20 @@ export default function ProfessionalTypingLab() {
             <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-8 md:p-10 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'} shadow-xl`}>
               <div className="text-center mb-10">
                 <h2 className={`text-3xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} mb-3`}>
-                  {username}'s Results
+                  Practice Results
                 </h2>
                 <p className={`text-lg ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-                  Great job on completing the typing test!
+                  Great job on completing the lesson!
                 </p>
                 {selectedLesson && (
                   <p className={`text-sm mt-2 ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>
                     Lesson: {selectedLesson.title}
                   </p>
                 )}
+               
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10 w-full ml-40 font-mono">
+              <div className="grid grid-cols-2 gap-6 mb-10 max-w-2xl mx-auto font-mono">
                 <StatPanel
                   value={stats.wpm}
                   label="Words Per Minute"
@@ -716,11 +603,12 @@ export default function ProfessionalTypingLab() {
                   Try Again
                 </ActionButton>
                 <ActionButton
-                  onClick={resetUsername}
+                  onClick={() => router.push('/')}
+                  icon={<ArrowRightCircleIcon  className="w-5 h-5" />}
                   variant="secondary"
                   className="text-lg px-8 py-4"
                 >
-                  Change Username
+                  Take Test
                 </ActionButton>
               </div>
 
@@ -732,8 +620,9 @@ export default function ProfessionalTypingLab() {
                       startGame();
                     }}
                     className="text-emerald-400 hover:text-emerald-300 underline font-mono"
+
                   >
-                    Next Exercise →
+                    Next Exercise ⮞
                   </button>
                 </div>
               )}

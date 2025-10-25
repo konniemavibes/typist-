@@ -307,7 +307,7 @@ export default function ProfessionalTypingLab() {
                   }}
                   className={`w-full px-5 py-4 rounded-lg border ${theme === 'dark' ? 'bg-slate-700 border-slate-600 text-slate-200 focus:ring-emerald-500/30' : 'bg-white border-slate-300 text-slate-800 focus:ring-emerald-500/20'} 
                            focus:outline-none focus:border-emerald-500 focus:ring-4 font-mono text-xl transition duration-200`}
-                  placeholder="Enter your name."
+                  placeholder="Enter your username"
                   maxLength="20"
                   autoFocus
                 />
@@ -321,7 +321,7 @@ export default function ProfessionalTypingLab() {
                   Start typing
                 </button>
                 <p className={`mt-6 font-mono text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-                💡 Make it to the leaderboard!
+                ☝ Always use one username, no duplication!
               </p>
               </form>
             </div>
