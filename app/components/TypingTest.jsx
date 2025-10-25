@@ -110,6 +110,21 @@ export default function ProfessionalTypingLab() {
     if (inputRef.current) inputRef.current.focus();
   }, [generateSentence, stats.initialTime]);
 
+  // Keyboard shortcut: Ctrl+Space to restart
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.code === 'Space') {
+        e.preventDefault();
+        if (gameState === 'playing' || gameState === 'results') {
+          startGame();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState, startGame]);
+
   useEffect(() => {
     if (gameState === 'playing' && !sentence) {
       setSentence(generateSentence());
@@ -135,9 +150,7 @@ export default function ProfessionalTypingLab() {
     audioRef.current?.play();
     
     const timeElapsed = (Date.now() - startTimeRef.current) / 1000;
-    //wpm calculation by app of typing asyv I've increased it by 50%=1.5 for final
     const finalWpm = Math.round((correctCharsRef.current / 5) / (timeElapsed / 60));
-    // Dividing by 4 instead of 5 increases WPM by 25%
     const finalAccuracy = totalCharsTypedRef.current > 0
       ? Math.round((correctCharsRef.current / totalCharsTypedRef.current) * 100)
       : 100;
@@ -217,7 +230,7 @@ export default function ProfessionalTypingLab() {
     const timeElapsed = timerStartedRef.current
       ? (Date.now() - startTimeRef.current) / 1000
       : 0;
-//function of wpm creation in the app i can manipulate here.
+
     const netWpm = Math.round(
       timeElapsed > 0 ? (correctCharsRef.current / 5 / (timeElapsed / 60)) : 0
     );
@@ -231,12 +244,7 @@ export default function ProfessionalTypingLab() {
       wpm: netWpm,
       accuracy
     }));
-//end game if user is done with the sentence but all sentence is correct.
-    //if (newInput === sentence && !hasSubmittedRef.current) {
-     // endGame();
-   // }
 
-  //endgame whether the snetence are correct or not that do not matter here on this condition.
     if (newInput.length >= sentence.length && !hasSubmittedRef.current) {
       endGame();
     }
@@ -322,6 +330,19 @@ export default function ProfessionalTypingLab() {
 
         {gameState === "playing" && (
           <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
+            {/* Restart Button with Shortcut Hint */}
+            <div className="flex justify-end mb-2">
+              <button
+                onClick={startGame}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-mono text-sm transition-all"
+                title="Restart (Ctrl+Space)"
+              >
+                <ArrowPathIcon className="w-4 h-4" />
+                Restart
+                <span className="ml-1 px-2 py-0.5 bg-slate-600 rounded text-xs">Ctrl+Space</span>
+              </button>
+            </div>
+
             {/* Progress Bar */}
             <div className="w-full bg-slate-700/50 rounded-full h-2.5 mb-4">
               <div 
@@ -421,7 +442,7 @@ export default function ProfessionalTypingLab() {
             )}
           </div>
         )}
-{/* Result Screen for the test */}
+
         {gameState === "results" && (
           <div className="animate-slide-up max-w-4xl mx-auto font-mono">
             <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-8 md:p-10 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'} shadow-xl`}>
@@ -433,7 +454,6 @@ export default function ProfessionalTypingLab() {
                   Great job on completing the typing test!
                 </p>
               </div>
-              {/*design not good for result fetch*/}
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-10 mb-10 ml-40">
                 <StatPanel
@@ -449,17 +469,6 @@ export default function ProfessionalTypingLab() {
                   color="text-emerald-500"
                   unit="%"
                 />
-
-                {/*my raw mpm of mine edits
-                
-                
-                <StatPanel
-                  value={stats.rawWpm}
-                  label="Accuracy Rate"
-                  icon={<ChartBarIcon className="w-7 h-7" />}
-                  color="text-emerald-500"
-                */}
-            
               </div>
 
               <div className="flex justify-center gap-6">
@@ -470,6 +479,7 @@ export default function ProfessionalTypingLab() {
                   className="text-lg px-8 py-4"
                 >
                   Try Again
+                  <span className="ml-2 px-2 py-0.5 bg-emerald-600 rounded text-xs">Ctrl+Space</span>
                 </ActionButton>
                 <ActionButton
                   onClick={resetUsername}
