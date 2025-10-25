@@ -6,7 +6,7 @@ import { ChartBarIcon, SpeakerWaveIcon, SpeakerXMarkIcon, AcademicCapIcon, BookO
 import FuzzyText from '../components/FuzzyText';
 
 
-const musicTracks = ["/run.mp3", "/blocka.mp3", "/arike.mp3"];
+const musicTracks = ["/run.mp3", "/auraox.mp3", "/whois.mp3"];
 
 export default function NavBar() {
   const [isPlaying, setIsPlaying] = useState(false);
