@@ -63,7 +63,7 @@ export default function NavBar() {
           {/*heart shake i can import fizzytext*/}
           <FuzzyText 
             baseIntensity={0.2} 
-            >💔</FuzzyText></span>  .
+            >💖</FuzzyText></span>  .
       </span>
 
       <div className="flex items-center gap-4">
