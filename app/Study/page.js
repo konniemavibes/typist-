@@ -445,7 +445,7 @@ export default function ProfessionalTypingLab() {
 
       <div className="lg:ml-64 container mx-auto px-4 py-6 max-w-6xl">
         {gameState === "playing" && (
-          <div className="space-y-6 animate-fade-in max-w-5xl mx-auto ml-7">
+          <div className="space-y-6 animate-fade-in max-w-5xl mx-auto ml-9">
             {selectedLesson && (
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-slate-800/80' : 'bg-white/90'} border ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'}`}>
                 <div className="flex items-center justify-between">
