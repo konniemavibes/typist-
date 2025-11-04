@@ -1,9 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⌨️ Typing Test Web
 
-## Getting Started
+A modern, feature-rich typing speed test application built with Next.js. Practice your typing skills with various lessons, track your progress, and compete on the leaderboard!
 
-First, run the development server:
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://lfhstyping.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
 
+## 🚀 Features
+
+- **📊 Real-time WPM & Accuracy Tracking** - Monitor your typing speed and accuracy as you type
+- **🎯 Multiple Difficulty Levels** - Practice with lessons ranging from beginner to expert
+- **📚 Six Comprehensive Lessons** - Home Row, Top Row, Bottom Row, Full Keyboard, Numbers, and Special Characters
+- **🏆 Global Leaderboard** - Compete with typists worldwide
+- **📱 Mobile Responsive** - Practice on any device with virtual keyboard support
+- **🎨 Dark Mode Interface** - Easy on the eyes during extended practice sessions
+- **💾 Progress Saving** - Your username and progress are saved locally
+- **⏱️ Timed Tests** - 30-second typing challenges
+
+## 🎮 Demo
+
+Visit the live application: **[lfhstyping.vercel.app](https://lfhstyping.vercel.app)**
+
+## 🛠️ Technologies Used
+
+- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** [Heroicons](https://heroicons.com/)
+- **Database:** MongoDB (for leaderboard)
+- **Deployment:** [Vercel](https://vercel.com)
+
+## ⚙️ Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/typing-test-web.git
+cd typing-test-web
+```
+
+2. **Install dependencies**
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. **Set up environment variables**
+
+Create a `.env.local` file in the root directory:
+```bash
+MONGODB_URI=your_mongodb_connection_string
+```
+
+4. **Run the development server**
 ```bash
 npm run dev
 # or
@@ -14,23 +65,50 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. **Open your browser**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎯 Usage
 
-## Learn More
+1. **Enter your username** on the home screen
+2. **Choose your practice mode:**
+   - Take a random typing test
+   - Select a specific lesson from the sidebar
+3. **Start typing** when ready - timer begins automatically
+4. **View your results** including WPM and accuracy
+5. **Check the leaderboard** to see how you rank
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This app is optimized for deployment on Vercel:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Push your code to GitHub**
+2. **Import project to Vercel** at [vercel.com/new](https://vercel.com/new)
+3. **Configure environment variables** - Add your `MONGODB_URI`
+4. **Deploy!**
 
-## Deploy on Vercel
+For detailed instructions, check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📚 Learn More
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial
+- [Next.js GitHub repository](https://github.com/vercel/next.js)
+
+## 👨‍💻 Author
+
+**David**
+- Portfolio: [portifolio-of-konnie.vercel.app](https://portifolio-of-konnie.vercel.app)
+- Project Link: [lfhstyping.vercel.app](https://lfhstyping.vercel.app)
+
+## 🙏 Acknowledgments
+
+- Font: [Geist](https://vercel.com/font) by Vercel
+- Icons: [Heroicons](https://heroicons.com/)
+
+---
+
+**Happy Typing! ⌨️✨**
+
+If you found this project helpful, please give it a ⭐️!
