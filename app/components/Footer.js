@@ -1,4 +1,5 @@
 "use client";
+import { UserIcon } from '@heroicons/react/24/outline';
 
 export default function Footer() {
   const cardStyle = {
@@ -50,14 +51,28 @@ export default function Footer() {
         }}
       >
         © 2024 Typing Test. All rights reserved.{" "}
-        {/*link is writtten badly i have to work on it*/}
+        {/*link is writtten badly i have to work on it*/} 
         <a
           href="https://portifolio-of.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#059669", textDecoration: "none" }}
-        >
-        💻  <span style={{ color: "white", textDecoration: "underline" }}>
+          style={{ 
+            color: "#059669", 
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.25rem"
+          }}
+        > 
+          
+          <span style={{ 
+            color: "white", 
+            textDecoration: "underline",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.25rem"
+          }}>
+            <UserIcon style={{ width: "20px", height: "20px", color: "white" }} />
             David's portfolio
           </span>{" "}
           as developer.

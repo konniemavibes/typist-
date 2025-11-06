@@ -2,7 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ChartBarIcon, SpeakerWaveIcon, SpeakerXMarkIcon, AcademicCapIcon, BookOpenIcon  } from "@heroicons/react/24/outline";
-
+import { BsBookHalf, BsBook, BsBookFill } from 'react-icons/bs';
+import { MdMenuBook } from 'react-icons/md';
 import FuzzyText from '../components/FuzzyText';
 
 
@@ -72,7 +73,7 @@ export default function NavBar() {
           href="/Study"
           className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 font-mono font-bold"
         >
-          <BookOpenIcon  className="w-5 h-5" />
+          <MdMenuBook  className="w-5 h-5" />
           <span className="hidden md:inline">Lessons</span>
         </Link>
 
@@ -114,7 +115,7 @@ export default function NavBar() {
                     <SpeakerXMarkIcon className="w-4 h-4 text-slate-400" />
                   )}
                 </button>
-                <span className="text-xs text-slate-300">Track #{currentTrack + 1}</span>
+                <span className="text-xs text-slate-300">Melody #{currentTrack + 1}</span>
               </div>
               
               {/* Simple volume slider & kuzamura. */}
