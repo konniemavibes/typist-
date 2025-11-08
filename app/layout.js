@@ -1,11 +1,16 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import './globals.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
 });
 
 const geistMono = Geist_Mono({
@@ -53,7 +58,7 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${dmSans.variable} ${dmSans.variable} antialiased`}>
         <Navbar />
         <main>{children}</main>
         <Footer />

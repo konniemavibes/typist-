@@ -91,7 +91,7 @@ const StatPanel = ({ icon, value, label, unit = "", color, className = "" }) => 
   `}>
     <div className="flex items-center gap-3 mb-1">
       <span className={`${color}`}>{icon}</span>
-      <span className="text-3xl font-mono font-bold">
+      <span className="text-3xl  ">
         {value}{unit}
       </span>
     </div>
@@ -338,7 +338,7 @@ export default function ProfessionalTypingLab() {
       )}
       
       <div className={`
-        fixed top-17 left-0 h-screen w-72 font-mono font-bold flex flex-col
+        fixed top-17 left-0 h-screen w-72   flex flex-col
         ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'} 
         border-r ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'}
         transform transition-transform duration-300 ease-in-out z-50
@@ -351,7 +351,7 @@ export default function ProfessionalTypingLab() {
               <div className="p-2 bg-emerald-500/10 rounded-lg">
                 <BarsArrowUpIcon className="w-6 h-6 text-emerald-500" />
               </div>
-              <h2 className={`text-xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
+              <h2 className={`text-xl   ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
                 Menu
               </h2>
             </div>
@@ -388,7 +388,7 @@ export default function ProfessionalTypingLab() {
         </nav>
 
         <div className="flex-1 overflow-y-auto p-4 mb-8" style={{ scrollBehavior: 'smooth' }}>
-          <h3 className={`text-xs font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} uppercase tracking-wider mb-3 px-2`}>
+          <h3 className={`text-xs  ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'} uppercase tracking-wider mb-3 px-2`}>
             Training Lessons
           </h3>
           <div className="space-y-2 mb-6">
@@ -407,11 +407,11 @@ export default function ProfessionalTypingLab() {
                 `}
               >
                 <div className="flex items-start justify-between mb-2">
-                  <span className={`text-sm font-bold ${selectedLesson?.id === lesson.id ? 'text-emerald-400' : theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
+                  <span className={`text-sm  ${selectedLesson?.id === lesson.id ? 'text-emerald-400' : theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
                     {lesson.title}
                   </span>
                   <span className={`
-                    text-xs px-2.5 py-1 rounded-full font-bold 
+                    text-xs px-2.5 py-1 rounded-full  
                     ${lesson.difficulty === 'Easy' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : ''}
                     ${lesson.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
                     ${lesson.difficulty === 'Hard' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : ''}
@@ -450,7 +450,7 @@ export default function ProfessionalTypingLab() {
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-slate-800/80' : 'bg-white/90'} border ${theme === 'dark' ? 'border-slate-700' : 'border-slate-200'}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className={`font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
+                    <h3 className={`  ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>
                       {selectedLesson.title}
                     </h3>
                     <p className={`text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -476,7 +476,7 @@ export default function ProfessionalTypingLab() {
               />
             </div>
             <div className={`
-              relative text-xl md:text-2xl lg:text-3xl leading-relaxed font-mono
+              relative text-xl md:text-2xl lg:text-3xl leading-relaxed 
               p-6 md:p-8 lg:p-10 ${theme === 'dark' ? 'bg-slate-800/80' : 'bg-white/90'} backdrop-blur-lg rounded-xl 
               transition-all duration-300 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'}
               shadow-lg ${stats.time <= 0 ? 'opacity-75' : ''}
@@ -490,7 +490,7 @@ export default function ProfessionalTypingLab() {
                     <span
                       key={index}
                       className={`
-                        relative font-mono
+                        relative 
                         ${isActive ? "text-emerald-500 border-b-2 border-emerald-500" : ""}
                         ${inputChar !== undefined
                           ? inputChar === char
@@ -523,7 +523,7 @@ export default function ProfessionalTypingLab() {
               />
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mt-8 font-mono">
+            <div className="grid grid-cols-3 gap-4 mt-8 ">
               <StatPanel
                 value={stats.time}
                 label="Time Remaining"
@@ -560,10 +560,10 @@ export default function ProfessionalTypingLab() {
         )}
 
         {gameState === "results" && (
-          <div className="animate-slide-up max-w-4xl mx-auto font-mono">
+          <div className="animate-slide-up max-w-4xl mx-auto ">
             <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-8 md:p-10 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'} shadow-xl`}>
               <div className="text-center mb-10">
-                <h2 className={`text-3xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} mb-3`}>
+                <h2 className={`text-3xl   ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} mb-3`}>
                   Practice Results
                 </h2>
                 <p className={`text-lg ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -577,7 +577,7 @@ export default function ProfessionalTypingLab() {
                
               </div>
 
-              <div className="grid grid-cols-2 gap-6 mb-10 max-w-2xl mx-auto font-mono">
+              <div className="grid grid-cols-2 gap-6 mb-10 max-w-2xl mx-auto ">
                 <StatPanel
                   value={stats.wpm}
                   label="Words Per Minute"
@@ -619,7 +619,7 @@ export default function ProfessionalTypingLab() {
                       setCurrentSentenceIndex(currentSentenceIndex + 1);
                       startGame();
                     }}
-                    className="text-emerald-400 hover:text-emerald-300 underline font-mono"
+                    className="text-emerald-400 hover:text-emerald-300 underline "
 
                   >
                     Next Exercise ⮞

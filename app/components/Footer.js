@@ -45,7 +45,6 @@ export default function Footer() {
         style={{
           fontSize: "0.9rem",
           color: "#059669",
-          fontFamily: "'Roboto Mono', 'Helvetica Neue', monospace",
           marginBottom: "1.5rem",
           lineHeight: "1.5",
         }}

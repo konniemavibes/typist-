@@ -35,7 +35,7 @@ body {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) 
           env(safe-area-inset-bottom) env(safe-area-inset-left);
           /* Global Styles */
-
+font-family: var(--font-dm-sans); /* <-- use DM Sans variable */
 
 }
 

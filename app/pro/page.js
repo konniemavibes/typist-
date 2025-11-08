@@ -87,17 +87,17 @@ export default function LeaderboardPage() {
     <div className="min-h-screen bg-slate-900 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-mono font-bold text-slate-200 flex items-center justify-center gap-3">
+          <h1 className="text-3xl text-slate-200 flex items-center justify-center gap-3">
             <RocketLaunchIcon className="w-10 h-10 text-emerald-500 mr-5 animate-bounce" />
             <TrueFocus />
           </h1>
           <br />
-          <p className="text-slate-400 mt-2 font-mono font-bold">Top speeds and highest accuracy</p>
+          <p className="text-slate-400 mt-2">Top speeds and highest accuracy</p>
           
           <button
             onClick={handleStartNewTest}
             className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-slate-900 
-                     rounded-lg hover:bg-emerald-600 transition-colors font-medium font-mono"
+                     rounded-lg hover:bg-emerald-600 transition-colors font-medium"
           >
             <ArrowPathIcon className="w-5 h-5" />
             Take Another Test
@@ -115,20 +115,20 @@ export default function LeaderboardPage() {
                     <TrophyIcon className="w-8 h-8 text-slate-900" />
                   </div>
                 </div>
-                <h3 className="text-xl font-mono font-semibold text-slate-300 mt-2">{scores[1].name}</h3>
+                <h3 className="text-xl font-semibold text-slate-300 mt-2">{scores[1].name}</h3>
                 <div className="flex justify-center space-x-4 mt-3">
                   <div className="text-sm text-slate-400">
                     <ClockIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-slate-300">{scores[1].wpm} WPM</span>
+                    <span className=" font-medium text-slate-300">{scores[1].wpm} WPM</span>
                   </div>
                   <div className="text-sm text-slate-400">
                     <ChartBarIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-slate-300">{scores[1].accuracy}%</span>
+                    <span className=" font-medium text-slate-300">{scores[1].accuracy}%</span>
                   </div>
                 </div>
                 <div className="h-8 bg-slate-700 mt-4 mb-2"></div>
               </div>
-              <div className="text-center text-lg font-mono font-bold text-slate-400">2ND</div>
+              <div className="text-center text-lg   text-slate-400">2ND</div>
             </div>
 
             {/* First Place */}
@@ -139,20 +139,20 @@ export default function LeaderboardPage() {
                     <TrophyIcon className="w-10 h-10 text-slate-900" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-mono font-bold text-yellow-500 mt-2">{scores[0].name}</h3>
+                <h3 className="text-2xl   text-yellow-500 mt-2">{scores[0].name}</h3>
                 <div className="flex justify-center space-x-4 mt-3">
                   <div className="text-sm text-slate-400">
                     <ClockIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-yellow-500">{scores[0].wpm} WPM</span>
+                    <span className=" font-medium text-yellow-500">{scores[0].wpm} WPM</span>
                   </div>
                   <div className="text-sm text-slate-400">
                     <ChartBarIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-yellow-500">{scores[0].accuracy}%</span>
+                    <span className=" font-medium text-yellow-500">{scores[0].accuracy}%</span>
                   </div>
                 </div>
                 <div className="h-16 bg-yellow-900/30 mt-4 mb-2"></div>
               </div>
-              <div className="text-center text-2xl font-mono font-bold text-yellow-500">1ST</div>
+              <div className="text-center text-2xl   text-yellow-500">1ST</div>
             </div>
 
             {/* Third Place */}
@@ -163,20 +163,20 @@ export default function LeaderboardPage() {
                     <TrophyIcon className="w-7 h-7 text-slate-900" />
                   </div>
                 </div>
-                <h3 className="text-lg font-mono font-semibold text-slate-300 mt-2">{scores[2].name}</h3>
+                <h3 className="text-lg  font-semibold text-slate-300 mt-2">{scores[2].name}</h3>
                 <div className="flex justify-center space-x-4 mt-3">
                   <div className="text-sm text-slate-400">
                     <ClockIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-slate-300">{scores[2].wpm} WPM</span>
+                    <span className=" font-medium text-slate-300">{scores[2].wpm} WPM</span>
                   </div>
                   <div className="text-sm text-slate-400">
                     <ChartBarIcon className="w-4 h-4 inline mr-1" />
-                    <span className="font-mono font-medium text-slate-300">{scores[2].accuracy}%</span>
+                    <span className=" font-medium text-slate-300">{scores[2].accuracy}%</span>
                   </div>
                 </div>
                 <div className="h-4 bg-slate-700 mt-4 mb-2"></div>
               </div>
-              <div className="text-center text-lg font-mono font-bold text-amber-700">3RD</div>
+              <div className="text-center text-lg   text-amber-700">3RD</div>
             </div>
           </div>
         )}
@@ -189,19 +189,19 @@ export default function LeaderboardPage() {
               {scores.slice(3).map((score, index) => (
                 <div key={score.id} className="p-4 border-b border-slate-700/50">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-700 text-sm font-mono font-semibold text-slate-300">
+                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-700 text-sm  font-semibold text-slate-300">
                       {index + 4}
                     </span>
-                    <span className="font-mono font-medium text-slate-300">{score.name}</span>
+                    <span className=" font-medium text-slate-300">{score.name}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="text-slate-500">WPM:</span>
-                      <span className="ml-2 text-slate-400 font-mono">{score.wpm}</span>
+                      <span className="ml-2 text-slate-400 ">{score.wpm}</span>
                     </div>
                     <div>
                       <span className="text-slate-500">Accuracy:</span>
-                      <span className="ml-2 text-slate-400 font-mono">{score.accuracy}%</span>
+                      <span className="ml-2 text-slate-400 ">{score.accuracy}%</span>
                     </div>
                   </div>
                 </div>
@@ -242,13 +242,13 @@ export default function LeaderboardPage() {
                 {scores.slice(3).map((score, index) => (
                   <tr key={score.id} className="hover:bg-slate-700/20 transition-colors">
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-700/50 font-mono font-semibold text-slate-300">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-700/50  font-semibold text-slate-300">
                         {index + 4}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-mono font-medium text-slate-300">{score.name}</td>
-                    <td className="px-6 py-4 text-slate-400 font-mono">{score.wpm}</td>
-                    <td className="px-6 py-4 text-slate-400 font-mono">{score.accuracy}%</td>
+                    <td className="px-6 py-4  font-medium text-slate-300">{score.name}</td>
+                    <td className="px-6 py-4 text-slate-400 ">{score.wpm}</td>
+                    <td className="px-6 py-4 text-slate-400 ">{score.accuracy}%</td>
                   </tr>
                 ))}
               </tbody>

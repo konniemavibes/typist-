@@ -59,19 +59,18 @@ export default function NavBar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-slate-800 flex justify-between items-center p-3 shadow-md ">
-      <span className="text-3xl font-mono font-bold text-emerald-500">
+      <span className="text-4xl text-emerald-500">
         ASYV typing practice{/*fixed nav without wrap by span for test your speed.*/}<span className="inline-block text-xl align-middle" style={{width: '35px', height: '35px'}}>
-          {/*heart shake i can import fizzytext*/}
-          <FuzzyText 
+          {/*heart shake i can import fizzytext*/}<FuzzyText 
             baseIntensity={0.2} 
-            >💖</FuzzyText></span>  .
+            >💖</FuzzyText></span>{/*Look at this width styling mode with comment*/}                                                                          _.
       </span>
 
       <div className="flex items-center gap-4">
         {/* This is a lesson button */}
           <Link
           href="/Study"
-          className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 font-mono font-bold"
+          className="flex items-center gap-2 text-slate-300 hover:text-emerald-400"
         >
           <MdMenuBook  className="w-5 h-5" />
           <span className="hidden md:inline">Lessons</span>
@@ -80,7 +79,7 @@ export default function NavBar() {
         {/* This is a leaderboard button */}
         <Link
           href="/pro"
-          className="flex items-center gap-2 text-slate-300 hover:text-emerald-400 font-mono font-bold"
+          className="flex items-center gap-2 text-slate-300 hover:text-emerald-400"
         >
           <ChartBarIcon className="w-5 h-5" />
           <span className="hidden md:inline">Leaderboard</span>

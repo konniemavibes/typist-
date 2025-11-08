@@ -18,7 +18,7 @@ const StatPanel = ({ icon, value, label, unit = "", color, className = "" }) => 
   `}>
     <div className="flex items-center gap-3 mb-1">
       <span className={`${color}`}>{icon}</span>
-      <span className="text-3xl font-mono font-bold">
+      <span className="text-3xl  ">
         {value}{unit}
       </span>
     </div>
@@ -271,7 +271,7 @@ export default function ProfessionalTypingLab() {
   const handleUsernameSubmit = (e) => {
     e.preventDefault();
     if (username.trim().length < 2) {
-      setSubmitError('Please enter a name with at least 2 characters');
+      setSubmitError('Please enter a name with at least 2 characters?');
       return;
     }
     localStorage.setItem('typingUsername', username.trim());
@@ -293,7 +293,7 @@ export default function ProfessionalTypingLab() {
             <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-10 max-w-md w-full mx-auto border border-slate-700/20 shadow-xl`}>
               <div className="flex items-center justify-center mb-8">
                 <UserPlusIcon className="w-10 h-10 text-emerald-500" />
-                <h1 className={`text-3xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} ml-3`}>
+                <h1 className={`text-3xl   ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} ml-3`}>
                   Typing Test Web.
                 </h1>
               </div>
@@ -306,8 +306,8 @@ export default function ProfessionalTypingLab() {
                     setSubmitError('');
                   }}
                   className={`w-full px-5 py-4 rounded-lg border ${theme === 'dark' ? 'bg-slate-700 border-slate-600 text-slate-200 focus:ring-emerald-500/30' : 'bg-white border-slate-300 text-slate-800 focus:ring-emerald-500/20'} 
-                           focus:outline-none focus:border-emerald-500 focus:ring-4 font-mono text-xl transition duration-200`}
-                  placeholder="Enter your username"
+                           focus:outline-none focus:border-emerald-500 focus:ring-4  text-xl transition duration-200`}
+                  placeholder="Enter your nickname"
                   maxLength="20"
                   autoFocus
                 />
@@ -316,12 +316,12 @@ export default function ProfessionalTypingLab() {
                 )}
                 <button
                   type="submit"
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 px-6 py-4 rounded-lg font-medium text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] font-mono"
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 px-6 py-4 rounded-lg font-medium text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] "
                 >
                   Start typing
                 </button>
-                <p className={`mt-6 font-mono text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-                ☝ Always use one username, no duplication!
+                <p className={`mt-6  text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                ☝ Always use one nickname, no duplication!
               </p>
               </form>
             </div>
@@ -334,7 +334,7 @@ export default function ProfessionalTypingLab() {
             <div className="flex justify-end mb-2">
               <button
                 onClick={startGame}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-mono text-sm transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg  text-sm transition-all"
                 title="Restart (Ctrl+Space)"
               >
                 <ArrowPathIcon className="w-4 h-4" />
@@ -351,7 +351,7 @@ export default function ProfessionalTypingLab() {
               />
             </div>
             <div className={`
-              relative text-xl md:text-2xl lg:text-3xl leading-relaxed font-mono
+              relative text-xl md:text-2xl lg:text-3xl leading-relaxed 
               p-6 md:p-8 lg:p-10 ${theme === 'dark' ? 'bg-slate-800/80' : 'bg-white/90'} backdrop-blur-lg rounded-xl 
               transition-all duration-300 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'}
               shadow-lg ${stats.time <= 0 ? 'opacity-75' : ''}
@@ -365,7 +365,7 @@ export default function ProfessionalTypingLab() {
                     <span
                       key={index}
                       className={`
-                        relative font-mono
+                        relative 
                         ${isActive ? "text-emerald-500 border-b-2 border-emerald-500" : ""}
                         ${inputChar !== undefined
                           ? inputChar === char
@@ -398,7 +398,7 @@ export default function ProfessionalTypingLab() {
               />
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mt-8 font-mono">
+            <div className="grid grid-cols-3 gap-4 mt-8 ">
               <StatPanel
                 value={stats.time}
                 label="Time Remaining"
@@ -424,7 +424,7 @@ export default function ProfessionalTypingLab() {
             <div className="text-center mt-8">
               <button 
                 onClick={resetUsername}
-                className={`text-sm ${theme === 'dark' ? 'text-slate-500 hover:text-slate-400' : 'text-slate-500 hover:text-slate-700'} underline font-mono transition-colors duration-200`}
+                className={`text-sm ${theme === 'dark' ? 'text-slate-500 hover:text-slate-400' : 'text-slate-500 hover:text-slate-700'} underline  transition-colors duration-200`}
               >
                 Change username
               </button>
@@ -444,10 +444,10 @@ export default function ProfessionalTypingLab() {
         )}
 
         {gameState === "results" && (
-          <div className="animate-slide-up max-w-4xl mx-auto font-mono">
+          <div className="animate-slide-up max-w-4xl mx-auto ">
             <div className={`${theme === 'dark' ? 'bg-slate-800/90' : 'bg-white/90'} backdrop-blur-lg rounded-xl p-8 md:p-10 border ${theme === 'dark' ? 'border-slate-700/30' : 'border-slate-200/70'} shadow-xl`}>
               <div className="text-center mb-10">
-                <h2 className={`text-3xl font-mono font-bold ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} mb-3`}>
+                <h2 className={`text-3xl   ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} mb-3`}>
                   {username}'s Results
                 </h2>
                 <p className={`text-lg ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
