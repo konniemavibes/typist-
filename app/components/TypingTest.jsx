@@ -294,7 +294,7 @@ export default function ProfessionalTypingLab() {
               <div className="flex items-center justify-center mb-8">
                 <UserPlusIcon className="w-10 h-10 text-emerald-500" />
                 <h1 className={`text-3xl   ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'} ml-3`}>
-                  Typing Test Web.
+                  LFHS Typing Web.
                 </h1>
               </div>
               <form onSubmit={handleUsernameSubmit} className="space-y-6">

@@ -59,8 +59,8 @@ export default function NavBar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-slate-800 flex justify-between items-center p-3 shadow-md ">
-      <span className="text-4xl text-emerald-500">
-        ASYV typing practice{/*fixed nav without wrap by span for test your speed.*/}<span className="inline-block text-xl align-middle" style={{width: '35px', height: '35px'}}>
+      <span className="text-4xl font-[600] text-emerald-500">
+        Typing practice{/*fixed nav without wrap by span for test your speed.*/}<span className="inline-block text-xl align-middle" style={{width: '35px', height: '35px'}}>
           {/*heart shake i can import fizzytext*/}<FuzzyText 
             baseIntensity={0.2} 
             >💖</FuzzyText></span>{/*Look at this width styling mode with comment*/}                                                                          _.

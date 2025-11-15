@@ -152,7 +152,7 @@ export default function LeaderboardPage() {
                 </div>
                 <div className="h-16 bg-yellow-900/30 mt-4 mb-2"></div>
               </div>
-              <div className="text-center text-2xl   text-yellow-500">1ST</div>
+              <div className="text-center text-2xl   text-yellow-500 text-bold">1ST</div>
             </div>
 
             {/* Third Place */}
